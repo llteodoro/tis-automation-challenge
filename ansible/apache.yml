@@ -1,0 +1,7 @@
+---
+- name: Install Apache
+  hosts: hosts-linux
+  become: yes
+
+  roles:
+  - apache
