@@ -1,0 +1,25 @@
+---
+- name: Install Apache
+  hosts: tagGroupWebserver_Linux
+  #vars:
+  #  document_root: /var/www
+  #  ansible_user: "ubuntu"
+  #  ansible_ssh_private_key_file: 'chave_privada_pem'
+  #  ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+- name: Update Cache and Install Apache
+  apt:
+    name: httpd
+    state: latest
+    update_cache: yes
+- name: Copy index file to webserver
+  template:
+        src: ./index.html
+        dest: /var/www/html/
+  notify: Restart httpd
+
+  handlers:
+    - name: "Restart Apache"
+      service:
+        name: 
+        state: started
+        

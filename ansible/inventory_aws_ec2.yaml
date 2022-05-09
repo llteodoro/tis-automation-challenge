@@ -1,0 +1,14 @@
+---
+plugin: aws_ec2
+regions:
+  - us-east-1
+aws_access_key: AKIAWQULEERFCVVTLQ5W
+aws_secret_key: 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
+filters:
+  tag:Group: 
+  - Webserver-Windows
+  - Webserver-Linux
+keyed_groups:
+  - prefix: tag
+    key: tags 
+    separator: ""
