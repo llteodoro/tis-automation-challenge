@@ -1,4 +1,11 @@
 # Starter pipeline
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'aws'
+    command: 'init'
+    backendServiceAWS: 'tis-automation-challenge-bucket'
+    backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
+    backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
