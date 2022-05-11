@@ -18,7 +18,7 @@ steps:
   inputs:
     provider: 'aws'
     command: 'init'
-    backendServiceAWS: 'tis-automation-challenge-bucket'
+    backendServiceAWS: 'llteodoro-tis-automation-challenge'
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
 
@@ -26,7 +26,7 @@ steps:
   inputs:
     provider: 'aws'
     command: 'plan'
-    backendServiceAWS: 'tis-automation-challenge-bucket'
+    backendServiceAWS: 'llteodoro-tis-automation-challenge'
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
 
