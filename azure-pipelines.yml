@@ -26,7 +26,7 @@ steps:
 - task: TerraformTaskV2@2
   inputs:
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
-    environmentServiceNameAWS: 'development-cloud'
+    environmentServiceNameAWS: 'llteodoro-tis-automation-challenge'
     provider: 'aws'
     command: 'plan'
     backendServiceAWS: 'llteodoro-tis-automation-challenge'
