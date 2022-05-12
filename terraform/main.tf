@@ -47,11 +47,3 @@ resource "aws_instance" "Vm-Windows" {
 }
 
 
-resource "aws_key_pair" "chave-SSH" {
-    key_name = var.aws_key_pair
-    public_key = file("${var.aws_key_pair}.pub")
-
-
-}
-
-
