@@ -32,3 +32,13 @@ steps:
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
 
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'aws'
+    command: 'apply'
+    commandOptions: '-auto-approve'
+    environmentServiceNameAWS: 'llteodoro-tis-automation-challenge'
+    backendServiceAWS: 'llteodoro-tis-automation-challenge'
+    backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
+    backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
+
