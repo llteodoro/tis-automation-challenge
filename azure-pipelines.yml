@@ -32,8 +32,3 @@ steps:
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
 
-- task: DownloadSecureFile@1
-  name: caCertificate
-  displayName: 'Download CA certificate'
-  inputs:
-    secureFile: 'myCACertificate.pem'
