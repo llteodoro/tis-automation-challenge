@@ -34,6 +34,7 @@ steps:
 
 - task: TerraformTaskV2@2
   inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
     provider: 'aws'
     command: 'apply'
     commandOptions: '-auto-approve'
