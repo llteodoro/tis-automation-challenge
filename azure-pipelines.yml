@@ -16,6 +16,7 @@ steps:
 
 - task: TerraformTaskV2@2
   inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
     provider: 'aws'
     command: 'init'
     backendServiceAWS: 'llteodoro-tis-automation-challenge'
@@ -24,6 +25,7 @@ steps:
 
 - task: TerraformTaskV2@2
   inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
     provider: 'aws'
     command: 'plan'
     backendServiceAWS: 'llteodoro-tis-automation-challenge'
