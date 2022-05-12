@@ -22,7 +22,7 @@ variable "aws_instance" {
   
 }
 variable "aws_key_pair" {
-  default = "CC-KEY"
+  default = "$(key-file)"
 }
 
 variable "aws_security_group" {
