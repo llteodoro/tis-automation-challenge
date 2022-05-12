@@ -21,9 +21,6 @@ variable "aws_instance" {
     default = "t2.micro"
   
 }
-variable "aws_key_pair" {
-  default = "$(key-file)"
-}
 
 variable "aws_security_group" {
   default = "webserver-sg"
