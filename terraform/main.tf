@@ -17,7 +17,7 @@ resource "aws_instance" "Vm-Linux" {
   count = 2
   ami           = lookup(var.aws_ami-linux,var.aws_region) # us-east-1
   instance_type = var.aws_instance
-  key_name = challenge-key
+  key_name = "challenge-key"
 
   tags = {
     Name = "vm-linux-${count.index}"
@@ -33,7 +33,7 @@ resource "aws_instance" "Vm-Windows" {
   count = 2
   ami           = lookup(var.aws_ami-windows,var.aws_region) # us-east-1
   instance_type = var.aws_instance
-  key_name = challenge-key
+  key_name = "challenge-key"
   
 
   tags = {
