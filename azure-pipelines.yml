@@ -6,13 +6,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- script:
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'CC-KEY'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 - task: TerraformTaskV2@2
   inputs:
@@ -33,3 +32,8 @@ steps:
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
 
+- task: DownloadSecureFile@1
+  name: caCertificate
+  displayName: 'Download CA certificate'
+  inputs:
+    secureFile: 'myCACertificate.pem'
