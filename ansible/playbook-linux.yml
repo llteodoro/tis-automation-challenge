@@ -1,11 +1,8 @@
 ---
 - name: Install Apache
   hosts: tagGroupWebserver_Linux
-  #vars:
-  #  document_root: /var/www
-  #  ansible_user: "ubuntu"
-  #  ansible_ssh_private_key_file: 'chave_privada_pem'
-  #  ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
+- tasks:
 - name: Update Cache and Install Apache
   apt:
     name: httpd
