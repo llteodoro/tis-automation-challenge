@@ -1,0 +1,45 @@
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- script:
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'CC-KEY'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+- task: TerraformTaskV2@2
+  inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+    provider: 'aws'
+    command: 'init'
+    backendServiceAWS: 'llteodoro-tis-automation-challenge'
+    backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
+    backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
+
+- task: TerraformTaskV2@2
+  inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+    environmentServiceNameAWS: 'llteodoro-tis-automation-challenge'
+    provider: 'aws'
+    command: 'plan'
+    backendServiceAWS: 'llteodoro-tis-automation-challenge'
+    backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
+    backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
+
+- task: TerraformTaskV2@2
+  inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+    provider: 'aws'
+    command: 'apply'
+    commandOptions: '-auto-approve'
+    environmentServiceNameAWS: 'llteodoro-tis-automation-challenge'
+    backendServiceAWS: 'llteodoro-tis-automation-challenge'
+    backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
+    backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
+
