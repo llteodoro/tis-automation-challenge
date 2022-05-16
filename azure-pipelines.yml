@@ -13,6 +13,17 @@ steps:
     secureFile: 'CC-KEY'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
 
+- task: CopyFiles@2
+  displayName: 'Copy file'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    OverWrite: true 
+    Contents: |
+      **/playbook.yml
+      **/cria_host.sh
+    TargetFolder: '/tmp/clswap/'
+
+
 - task: TerraformTaskV2@2
   inputs:
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
@@ -43,3 +54,8 @@ steps:
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
 
+- task: 
+  displayName: Executing Container
+  inputs:
+    command: 'run'
+    arguments: '--rm -v /tmp/clswap/:/tmp/clswap llteodoro/ansible:1.0 ansible-playbook -i /tmp/clswap/Swap_Clean/hosts_pipeline /tmp/clswap/Swap_Clean/playbook.yml --extra-vars "ansible_user=$(user) ansible_password=$(user_pwd)" -vvv'
