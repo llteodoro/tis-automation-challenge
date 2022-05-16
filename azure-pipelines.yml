@@ -8,10 +8,7 @@ pool:
 steps:
 
 - script:
-- task: DownloadSecureFile@1
-  inputs:
-    secureFile: 'CC-KEY'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+
 
 - task: CopyFiles@2
   displayName: 'Copy file'
@@ -19,9 +16,11 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     OverWrite: true 
     Contents: |
-      **/playbook.yml
-      **/cria_host.sh
-    TargetFolder: '/tmp/clswap/'
+      **/ansible/inventory_aws_ec2.yml
+      **/ansible/playbook-linux.yml
+      **/ansible/playbook-windows.yml
+      **/ansible/index.html
+    TargetFolder: '/tmp/tis-cc-automation/'
 
 
 - task: TerraformTaskV2@2
