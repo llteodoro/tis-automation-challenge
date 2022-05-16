@@ -56,7 +56,7 @@ steps:
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
 
-- task: 
+- task: Executing Container
   displayName: Executing Container
   inputs:
     command: 'run'
