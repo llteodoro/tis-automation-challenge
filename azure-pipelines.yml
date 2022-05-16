@@ -9,7 +9,10 @@ steps:
 
 - script:
 
-
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'challenge-key.pem'
+    
 - task: CopyFiles@2
   displayName: 'Copy file'
   inputs:
@@ -57,4 +60,4 @@ steps:
   displayName: Executing Container
   inputs:
     command: 'run'
-    arguments: '--rm -v /tmp/clswap/:/tmp/clswap llteodoro/ansible:1.0 ansible-playbook -i /tmp/clswap/Swap_Clean/hosts_pipeline /tmp/clswap/Swap_Clean/playbook.yml --extra-vars "ansible_user=$(user) ansible_password=$(user_pwd)" -vvv'
+    arguments: '--rm -v /tmp/tis-cc-automation/:/tmp/tis-cc-automation/ llteodoro/ansible:1.0 ansible-playbook -i /tmp/tis-cc-automation/inventory_aws_ec2.yaml /tmp/tis-cc-automation/playbook-linux.yml --extra-vars "ansible_user=$(user-linux) --private-key=challenge-key.pem -vvv'
