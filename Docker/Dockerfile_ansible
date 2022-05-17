@@ -1,0 +1,11 @@
+FROM centos:8
+RUN yum update -y; \
+yum install python3 -y; \
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py; \
+python3 get-pip.py; \
+python3 -m pip install ansible==2.9.24; \
+yum install -y openssh-clients.x86_64; \
+dnf makecache; \
+dnf install epel-release -y; \
+dnf install sshpass -y; \
+yum clean all 

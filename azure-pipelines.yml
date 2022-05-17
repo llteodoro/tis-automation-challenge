@@ -8,10 +8,23 @@ pool:
 steps:
 
 - script:
+
 - task: DownloadSecureFile@1
   inputs:
-    secureFile: 'CC-KEY'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    secureFile: 'challenge-key.pem'
+    
+- task: CopyFiles@2
+  displayName: 'Copy file'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    OverWrite: true 
+    Contents: |
+      **/ansible/inventory_aws_ec2.yml
+      **/ansible/playbook-linux.yml
+      **/ansible/playbook-windows.yml
+      **/ansible/index.html
+    TargetFolder: '/tmp/tis-cc-automation/'
+
 
 - task: TerraformTaskV2@2
   inputs:
@@ -43,3 +56,19 @@ steps:
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
 
+- task: Docker@2
+  inputs:
+    command: 'run'
+    buildContext: '$(System.DefaultWorkingDirectory)'
+    Dockerfile: '**/Docker/Dockerfile_ansible'
+    arguments: '--rm -v /tmp/tis-cc-automation/:/tmp/tis-cc-automation/ llteodoro/ansible:1.0 ansible-playbook -i /tmp/tis-cc-automation/inventory_aws_ec2.yaml /tmp/tis-cc-automation/playbook-linux.yml --extra-vars "ansible_user=$(user-linux) --private-key=challenge-key.pem -vvv'
+- task: TerraformTaskV2@2
+  inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
+    provider: 'aws'
+    command: 'destroy'
+    commandOptions: '-auto-approve'
+    environmentServiceNameAWS: 'llteodoro-tis-automation-challenge'
+    backendServiceAWS: 'llteodoro-tis-automation-challenge'
+    backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
+    backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
