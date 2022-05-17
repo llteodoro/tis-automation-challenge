@@ -11,8 +11,37 @@ terraform {
 provider "aws" {
   profile = "default"
   region  = var.aws_region
+  access_key = "AKIAWQULEERFNHJKT64Y"
+  secret_key = "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"
 }
 
+resource "aws_instance" "Vm-Ansible-Agent" {
+  ami           = lookup(var.aws_ami-linux,var.aws_region) # us-east-1
+  instance_type = var.aws_instance
+  key_name = "challenge-key"
+
+  tags = {
+    Name = "vm-ansible-agent"
+  }
+  depends_on = [
+    aws_security_group.webserver-sg
+  ]
+  vpc_security_group_ids = ["${aws_security_group.webserver-sg.id}"] 
+output "IP_publico" {
+  value = aws_instance.app_server.public_ip
+  
+}
+  user_data = <<-EOF
+                  #!/bin/bash
+                  sudo apt update
+                  sudo apt install -y python3-pip
+                  sudo apt install -y python3-venv
+                  sudo apt install -y ssh
+                  python3 -m venv venv
+                  source venv/bin/activate
+                  pip3 install ansible
+                 EOF 
+}
 resource "aws_instance" "Vm-Linux" {
   count = 2
   ami           = lookup(var.aws_ami-linux,var.aws_region) # us-east-1
