@@ -11,8 +11,6 @@ terraform {
 provider "aws" {
   profile = "default"
   region  = var.aws_region
-  access_key = "AKIAWQULEERFNHJKT64Y"
-  secret_key = "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"
 }
 
 resource "aws_instance" "Vm-Ansible-Agent" {
@@ -27,10 +25,7 @@ resource "aws_instance" "Vm-Ansible-Agent" {
     aws_security_group.webserver-sg
   ]
   vpc_security_group_ids = ["${aws_security_group.webserver-sg.id}"] 
-output "IP_publico" {
-  value = aws_instance.app_server.public_ip
-  
-}
+
   user_data = <<-EOF
                   #!/bin/bash
                   sudo apt update
