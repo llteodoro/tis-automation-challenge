@@ -1,0 +1,7 @@
+[defaults]
+---
+app_user: apache
+http_conf: apache.conf.j2
+http_port: 80
+disable_default: true
+host_key_checking : False

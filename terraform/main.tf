@@ -26,16 +26,6 @@ resource "aws_instance" "Vm-Ansible-Agent" {
   ]
   vpc_security_group_ids = ["${aws_security_group.webserver-sg.id}"] 
 
-  user_data = <<-EOF
-                  #!/bin/bash
-                  sudo apt update
-                  sudo apt install -y python3-pip
-                  sudo apt install -y python3-venv
-                  sudo apt install -y ssh
-                  python3 -m venv venv
-                  source venv/bin/activate
-                  pip3 install ansible
-                 EOF 
 }
 resource "aws_instance" "Vm-Linux" {
   count = 2

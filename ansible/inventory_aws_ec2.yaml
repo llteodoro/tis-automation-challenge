@@ -2,8 +2,7 @@
 plugin: aws_ec2
 regions:
   - us-east-1
-aws_access_key: "Gerar um arquivo no usuário criado na AWS"
-aws_secret_key: "Gerar um arquivo no usuário criado na AWS"
+
 filters:
   tag:Group: 
   - Webserver-Windows
