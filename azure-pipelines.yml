@@ -89,7 +89,7 @@ steps:
       sudo pip3 install boto3
       sudo pip install pywinrm
 
-- task: CmdLine@3
+- task: CmdLine@2
   displayName: Run Ansible Playbook Linux
   inputs:
    script: |
