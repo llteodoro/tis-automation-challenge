@@ -12,6 +12,7 @@ steps:
 
 - task: TerraformTaskV3@3
   inputs:
+    workingDirectory: '$(Build.SourcesDirectory)'
     provider: 'aws'
     command: 'init'
     environmentServiceNameAWS: 'llteodoro-tis-automation-challenge'
@@ -21,6 +22,7 @@ steps:
 
 - task: TerraformTaskV3@3
   inputs:
+    workingDirectory: '$(Build.SourcesDirectory)'
     provider: 'aws'
     command: 'plan'
     environmentServiceNameAWS: 'llteodoro-tis-automation-challenge'
