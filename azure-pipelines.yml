@@ -9,22 +9,6 @@ steps:
 
 - script:
 
-- task: DownloadSecureFile@1
-  inputs:
-    secureFile: 'challenge-key.pem'
-    
-- task: CopyFiles@2
-  displayName: 'Copy file'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
-    OverWrite: true 
-    Contents: |
-      **/ansible/inventory_aws_ec2.yml
-      **/ansible/playbook-linux.yml
-      **/ansible/playbook-windows.yml
-      **/ansible/index.html
-    TargetFolder: '/tmp/tis-cc-automation/'
-
 
 - task: TerraformTaskV2@2
   inputs:
@@ -55,13 +39,12 @@ steps:
     backendServiceAWS: 'llteodoro-tis-automation-challenge'
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
-
-- task: Docker@2
-  inputs:
-    command: 'run'
-    buildContext: '$(System.DefaultWorkingDirectory)'
-    Dockerfile: '**/Docker/Dockerfile_ansible'
-    arguments: '--rm -v /tmp/tis-cc-automation/:/tmp/tis-cc-automation/ llteodoro/ansible:1.0 ansible-playbook -i /tmp/tis-cc-automation/inventory_aws_ec2.yaml /tmp/tis-cc-automation/playbook-linux.yml --extra-vars "ansible_user=$(user-linux) --private-key=challenge-key.pem -vvv'
+#- task: Docker@2
+#  inputs:
+#    command: 'run'
+#    buildContext: '$(System.DefaultWorkingDirectory)'
+#    Dockerfile: '**/Docker/Dockerfile_ansible'
+#    arguments: '--rm -v /tmp/tis-cc-automation/:/tmp/tis-cc-automation/ llteodoro/ansible:1.0 ansible-playbook -i /tmp/tis-cc-automation/inventory_aws_ec2.yaml /tmp/tis-cc-automation/playbook-linux.yml --extra-vars "ansible_user=$(user-linux) --private-key=challenge-key.pem -vvv'
 - task: TerraformTaskV2@2
   inputs:
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
@@ -72,3 +55,54 @@ steps:
     backendServiceAWS: 'llteodoro-tis-automation-challenge'
     backendAWSBucketName: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/'
     backendAWSKey: 'https://tis-automation-challenge.s3.amazonaws.com/tf-state/terraform.tfstate'
+    
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'challenge-key.pem'
+    
+- task: CopyFiles@2
+  displayName: 'Copy file'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    OverWrite: true 
+    Contents: |
+      **/ansible/inventory_aws_ec2.yml
+      **/ansible/playbook-linux.yml
+      **/ansible/playbook-windows.yml
+      **/ansible/index.html
+    TargetFolder: '/tmp/tis-cc-automation/'
+
+- task: CmdLine@2
+  displayName: Install Dependencies 
+  inputs:
+    script: |
+      cd /tmp/tis-cc-automation
+      #!/bin/bash
+      sudo apt update
+      sudo apt install -y python3-pip
+      sudo apt install -y python3-venv
+      sudo apt install -y ssh
+      sudo apt install -y ansible
+      sudo apt install python-boto3
+      python3 -m venv venv
+      source venv/bin/activate
+      sudo pip3 install boto3
+      sudo pip install pywinrm
+
+- task: CmdLine@2
+  displayName: Run Ansible Playbook Linux
+  inputs:
+   script: |
+     cd /tmp/tis-cc-automation
+     python3 -m venv venv
+     source venv/bin/activate
+     ansible-playbook -i inventory_aws_ec2.yml playbook-linux.yml -u ubuntu -private-key challenge-key.pem
+
+#- task: CmdLine@3
+#  displayName: Run Ansible Playbook Windows
+#  inputs:
+#    script: |
+#    cd /tmp/tis-cc-automation
+#    python3 -m venv venv
+#    source venv/bin/activate
+#    ansible-playbook -i inventory_aws_ec2.yml playbook-linux.yml -u ubuntu -private-key challenge-key.pem
