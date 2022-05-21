@@ -66,9 +66,8 @@ steps:
       sudo apt install -y python3-venv
       sudo apt install -y ssh
       sudo apt install -y ansible
-      sudo apt install python-boto3
-      python3 -m venv venv
-      source venv/bin/activate
+      sudo apt install -y pipenv
+      pipenv shell
       sudo pip install boto3
       sudo pip install botocore
       sudo pip install pywinrm
@@ -78,9 +77,7 @@ steps:
   inputs:
    script: |
      cd /tmp/tis-cc-automation/ansible/
-     ls -l 
-     python3 -m venv venv
-     source venv/bin/activate
+     pipenv shell
      sudo pip install boto3
      sudo pip install botocore
      sudo pip install pywinrm
