@@ -69,15 +69,16 @@ steps:
       python3 -m pip install "boto3"
       python3 -m pip install "botocore"
       python3 -m pip install "pywinrm"
+      ansible-playbook -i inventory_aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
 
 
-- task: CmdLine@2
-  displayName: Run Ansible Playbook Linux
-  inputs:
-   script: |
-     cd /tmp/tis-cc-automation/ansible
-     python3 -m venv .venv && source .venv/bin/activate
-     ansible-playbook -i inventory_aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
+#- task: CmdLine@2
+#  displayName: Run Ansible Playbook Linux
+#  inputs:
+#   script: |
+#     cd /tmp/tis-cc-automation/ansible
+#     python3 -m venv .venv && source .venv/bin/activate
+#     ansible-playbook -i inventory_aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
 
 #- task: CmdLine@3
 #  displayName: Run Ansible Playbook Windows
