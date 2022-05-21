@@ -59,26 +59,25 @@ steps:
   inputs:
     script: |
       cd /tmp/tis-cc-automation
-      ls
-      #!/bin/bash
-      sudo apt update
-      sudo apt install -y python3-pip
-      sudo apt install -y python3-venv
-      sudo apt install -y ssh
-      sudo apt install -y ansible
-      sudo apt install -y pipenv
+      python3 -m venv .venv && source .venv/bin/activate
+      python3 -m pip install "python3-pip"
+      python3 -m pip install "python3-venv"
+      python3 -m pip install "ansible"
+      python3 -m pip install "ssh"
+      python3 -m pip install "ansible" 
+      python3 -m pip install "pipenv"
+      python3 -m pip install "boto3"
+      python3 -m pip install "botocore"
+      python3 -m pip install "pywinrm"
+
 
 - task: CmdLine@2
   displayName: Run Ansible Playbook Linux
   inputs:
    script: |
-     cd /tmp/tis-cc-automation
-     pipenv shell
-     pipenv shell
-     sudo pip install boto3
-     sudo pip install botocore
-     sudo pip install pywinrm
-     ansible-playbook -i /tmp/tis-cc-automation/ansible/inventory_aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
+     cd /tmp/tis-cc-automation/ansible
+     python3 -m venv .venv && source .venv/bin/activate
+     ansible-playbook -i inventory_aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
 
 #- task: CmdLine@3
 #  displayName: Run Ansible Playbook Windows
