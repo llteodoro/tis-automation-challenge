@@ -67,16 +67,13 @@ steps:
       sudo apt install -y ssh
       sudo apt install -y ansible
       sudo apt install -y pipenv
-      pipenv shell
-      sudo pip install boto3
-      sudo pip install botocore
-      sudo pip install pywinrm
 
 - task: CmdLine@2
   displayName: Run Ansible Playbook Linux
   inputs:
    script: |
-     cd /tmp/tis-cc-automation/ansible/
+     cd /tmp/tis-cc-automation
+     pipenv shell
      pipenv shell
      sudo pip install boto3
      sudo pip install botocore
