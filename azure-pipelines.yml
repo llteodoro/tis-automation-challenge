@@ -57,7 +57,7 @@ steps:
 - task: CmdLine@2
   displayName: Install Dependencies 
   inputs:
-    workingDirectory: $(Build.SourcesDirectory)
+    workingDirectory: $(System.DefaultWorkingDirectory)/tmp/tis-cc-automation/
     script: |
       python3 -m venv .venv && source .venv/bin/activate
       pwd
