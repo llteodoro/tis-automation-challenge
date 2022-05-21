@@ -62,7 +62,7 @@ steps:
       export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID)
       export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
       python3 -m venv .venv && source .venv/bin/activate
-      ansible-playbook -i inventory_aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
+      ansible-playbook -i ansible/inventory_aws_ec2.yml ansible/playbook-linux.yml -u ubuntu --private-key challenge-key.pem
 
 
 #- task: CmdLine@2
