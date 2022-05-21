@@ -81,6 +81,9 @@ steps:
      ls -l 
      python3 -m venv venv
      source venv/bin/activate
+     sudo pip install boto3
+     sudo pip install botocore
+     sudo pip install pywinrm
      ansible-playbook -i inventory_aws_ec2.yaml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
 
 #- task: CmdLine@3
