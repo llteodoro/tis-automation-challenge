@@ -81,7 +81,7 @@ steps:
      sudo pip install boto3
      sudo pip install botocore
      sudo pip install pywinrm
-     ansible-playbook -i inventory_aws_ec2.yaml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
+     ansible-playbook -i /tmp/tis-cc-automation/ansible/inventory_aws_ec2.yaml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
 
 #- task: CmdLine@3
 #  displayName: Run Ansible Playbook Windows
