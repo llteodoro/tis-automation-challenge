@@ -59,6 +59,7 @@ steps:
   inputs:
     script: |
       cd /tmp/tis-cc-automation
+      ls
       #!/bin/bash
       sudo apt update
       sudo apt install -y python3-pip
