@@ -79,6 +79,7 @@ steps:
   inputs:
    script: |
      cd /tmp/tis-cc-automation/ansible/
+     ls -l 
      python3 -m venv venv
      source venv/bin/activate
      ansible-playbook -i inventory_aws_ec2.yaml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
