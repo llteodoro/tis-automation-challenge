@@ -51,10 +51,7 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     OverWrite: true 
     Contents: |
-      **/ansible/inventory_aws_ec2.yml
-      **/ansible/playbook-linux.yml
-      **/ansible/playbook-windows.yml
-      **/ansible/index.html
+      **/ansible/**
     TargetFolder: '/tmp/tis-cc-automation/'
 
 - task: CmdLine@2
