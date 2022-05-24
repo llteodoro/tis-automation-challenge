@@ -45,14 +45,14 @@ steps:
   inputs:
     secureFile: 'challenge-key.pem'
     
-#- task: CopyFiles@2
-#  displayName: 'Copy file'
-#  inputs:
-#    SourceFolder: '$(Build.SourcesDirectory)'
-#    OverWrite: true 
-#    Contents: |
-#      **/ansible/**
-#    TargetFolder: '/tmp/tis-cc-automation/'
+- task: CopyFiles@2
+  displayName: 'Copy file'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    OverWrite: true 
+    Contents: |
+      **/ansible/**
+    TargetFolder: '$(System.DefaultWorkingDirectory)/tmp/tis-cc-automation/'
 
 - task: CmdLine@2
   displayName: Install Dependencies 
