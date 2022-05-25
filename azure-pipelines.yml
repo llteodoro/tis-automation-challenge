@@ -52,13 +52,13 @@ steps:
     OverWrite: true 
     Contents: |
       **/ansible/**
-    TargetFolder: '$(System.DefaultWorkingDirectory)/tmp/tis-cc-automation/'
+    TargetFolder: '$(System.DefaultWorkingDirectory)/tmp/challenge-automation/'
 
 - task: Docker@2
   displayName: Executing Container
   inputs:
     command: 'run'
-    arguments: '--rm -v $(System.DefaultWorkingDirectory)/tmp/tis-cc-automation/:$(System.DefaultWorkingDirectory)/tmp/tis-cc-automation/ llteodoro/ansible:1.0 ansible-playbook -i $(System.DefaultWorkingDirectory)/tmp/tis-cc-automation/ansible/inventory.aws.ec2.yml $(System.DefaultWorkingDirectory)/tmp/tis-cc-automation/ansible/playbook-linux.yml -u ubuntu --private-key challenge-key.pem" -vvv'
+    arguments: '--rm -v $(System.DefaultWorkingDirectory)/tmp/challenge-automation/:$(System.DefaultWorkingDirectory)/tmp/challenge-automation/ llteodoro/ansible:1.0 ansible-playbook -i $(System.DefaultWorkingDirectory)/tmp/challenge-automation/ansible/inventory.aws.ec2.yml $(System.DefaultWorkingDirectory)/tmp/challenge-automation/ansible/playbook-linux.yml -u ubuntu --private-key challenge-key.pem" -vvv'
 #- task: CmdLine@2
 #  displayName: Install Dependencies 
 #  inputs:
