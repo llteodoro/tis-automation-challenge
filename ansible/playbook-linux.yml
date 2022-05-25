@@ -29,12 +29,12 @@
     become: true 
     copy:
       src: ./index.html
-      dest: /var/www/localhost/html
+      dest: /var/www/html
   
   - name: Create document root
     become: true
     file:
-        path: "/var/www/localhost"
+        path: "/var/www/"
         state: directory
         owner: "{{ app_user }}"
         mode: '0755'
