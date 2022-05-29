@@ -54,26 +54,26 @@ steps:
       **/ansible/**
     TargetFolder: '$(System.DefaultWorkingDirectory)/tmp/challenge-automation/'
 
-- task: Docker@2
-  displayName: Executing Container
-  inputs:
-    command: 'run'
-    arguments: '--rm -v $(System.DefaultWorkingDirectory)/tmp/challenge-automation/:$(System.DefaultWorkingDirectory)/tmp/challenge-automation/ llteodoro/ansible:1.1 ansible-playbook -i $(System.DefaultWorkingDirectory)/tmp/challenge-automation/ansible/inventory.aws.ec2.yml $(System.DefaultWorkingDirectory)/tmp/challenge-automation/ansible/playbook-linux.yml -u ubuntu --private-key challenge-key.pem" -vvv'
-#- task: CmdLine@2
-#  displayName: Install Dependencies 
+#- task: Docker@2
+#  displayName: Executing Container
 #  inputs:
-#    workingDirectory: $(System.DefaultWorkingDirectory)
-#    script: |
-#      export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID)
-#      export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
-#      python3 -m venv .venv && source .venv/bin/activate
-#      python3 -m pip install "ansible"
-#      python3 -m pip install "botocore"
-#      python3 -m pip install "boto3"
-#      ANSIBLE_HOST_KEY_CHECKING=False
-#      ansible-inventory -i ansible/inventory.aws.ec2.yml --graph
-#      ansible-playbook -i ansible/inventory.aws.ec2.yml ansible/playbook-linux.yml -u ubuntu --private-key challenge-key.pem
-#
+#    command: 'run'
+#    arguments: '--rm -v $(System.DefaultWorkingDirectory)/tmp/challenge-automation/:$(System.DefaultWorkingDirectory)/tmp/challenge-automation/ llteodoro/ansible:1.1 ansible-playbook -i $(System.DefaultWorkingDirectory)/tmp/challenge-automation/ansible/inventory.aws.ec2.yml $(System.DefaultWorkingDirectory)/tmp/challenge-automation/ansible/playbook-linux.yml -u ubuntu --private-key challenge-key.pem" -vvv'
+- task: CmdLine@2
+  displayName: Install Dependencies 
+  inputs:
+    workingDirectory: $(System.DefaultWorkingDirectory)
+    script: |
+      export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID)
+      export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
+      python3 -m venv .venv && source .venv/bin/activate
+      python3 -m pip install "ansible"
+      python3 -m pip install "botocore"
+      python3 -m pip install "boto3"
+      ANSIBLE_HOST_KEY_CHECKING=False
+      ansible-inventory -i ansible/inventory.aws.ec2.yml --graph
+      ansible-playbook -i ansible/inventory.aws.ec2.yml ansible/playbook-linux.yml -u ubuntu --private-key challenge-key.pem
+
 
 #- task: CmdLine@2
 #  displayName: Run Ansible Playbook Linux
