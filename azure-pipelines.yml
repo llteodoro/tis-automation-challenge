@@ -81,23 +81,9 @@ steps:
 - task: Ansible@0
   inputs:
     ansibleInterface: 'agentMachine'
-    playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/inventory_aws_ec2.yml'
-    inventoriesAgentMachine: 'inlineContent'
-    inventoryInlineDynamicAgentMachine: true
-    inventoryInlineContentAgentMachine: |
-      plugin: aws_ec2
-      regions:
-        - us-east-1
-      
-      filters:
-        tag:Group: 
-        - Webserver-Windows
-        - Webserver-Linux
-      keyed_groups:
-        - prefix: tag
-          key: tags 
-          separator: ""
-
+    playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/playbook-linux.yml'
+    inventoriesAgentMachine: 'file'
+    inventoryFileOnAgentMachine: '$(System.DefaultWorkingDirectory)/ansible/inventory_aws_ec2.yml'
 
 #- task: CmdLine@2
 #  displayName: Run Ansible Playbook Linux
