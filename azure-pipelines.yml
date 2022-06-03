@@ -7,8 +7,8 @@ pool:
 
 parameters: 
   - name: workingDirectory 
-    type: 
-    string default: "$(Build.SourcesDirectory)/ansible"
+    type: string 
+    default: "$(Build.SourcesDirectory)/ansible"
 steps:
 
 - script:
