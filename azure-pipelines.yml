@@ -8,7 +8,7 @@ pool:
 parameters: 
   - name: workingDirectory 
     type: 
-    string default: "$(Build.SourcesDirectory)/ansible
+    string default: "$(Build.SourcesDirectory)/ansible"
 steps:
 
 - script:
@@ -68,6 +68,9 @@ steps:
 #  inputs:
 #    command: 'run'
 #    arguments: '--rm -v $(System.DefaultWorkingDirectory)/tmp/challenge-automation/:$(System.DefaultWorkingDirectory)/tmp/challenge-automation/ llteodoro/ansible:1.1 ansible-playbook -i $(System.DefaultWorkingDirectory)/tmp/challenge-automation/ansible/inventory.aws.ec2.yml $(System.DefaultWorkingDirectory)/tmp/challenge-automation/ansible/playbook-linux.yml -u ubuntu --private-key challenge-key.pem" -vvv'
+
+
+
 - task: CmdLine@2
   displayName: Install Dependencies 
   inputs:
