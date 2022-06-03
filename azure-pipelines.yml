@@ -69,7 +69,7 @@ steps:
   inputs:
     workingDirectory: $(System.DefaultWorkingDirectory)
     script: |
-      cd /ansible/
+      cd ansible/
       ls -la
       export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID)
       export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
@@ -78,7 +78,7 @@ steps:
       python3 -m pip install "ansible"
       python3 -m pip install "botocore"
       python3 -m pip install "boto3"
-      cd /ansible/
+      cd ansible/
       ls -la
       ANSIBLE_HOST_KEY_CHECKING=False
       ansible-inventory -i inventory_aws_ec2.yml --graph
