@@ -76,9 +76,11 @@ steps:
   inputs:
     ansibleInterface: 'agentMachine'
     playbookPathOnAgentMachine: 'ansible/playbook-linux.yml'
-    inventoriesAgentMachine: 'file'
-    inventoryFileOnAgentMachine: 'ansible/inventory_aws_ec2.yml'
-
+    inventoriesAgentMachine: 'inlineContent'
+    inventoryInlineDynamicAgentMachine: true
+    inventoryInlineContentAgentMachine: |
+      inventory / 
+          ansible/inventory_aws_ec2.yml'
 #- task: CmdLine@2
 #  displayName: Run Ansible Playbook Linux
 #  inputs:
