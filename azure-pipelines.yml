@@ -59,16 +59,17 @@ steps:
   inputs:
     workingDirectory: '${{ parameters.workingDirectory }}'
     script: |
-      export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID)
-      export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
+      export AWS_ACCES_KEY_ID=$(aws_acces_key_id))
+      export AWS_SECRET_ACCESS_KEY=$(aws_acces_key_secret)
       cat ~/.aws/credentials
-      sudo ansible-galaxy collection install amazon.aws
       sudo apt-get install -y python-wheel
       python3 -m venv .venv && source .venv/bin/activate
       python3 -m pip install --upgrade pip
       python3 -m pip install "ansible"
       python3 -m pip install "botocore"
       python3 -m pip install "boto3"
+      sudo ansible-galaxy collection install amazon.aws
+      sudo apt-get install -y python-wheel
 - task: CmdLine@2
   displayName: Run Ansible Playbook Linux
   
