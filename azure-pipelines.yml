@@ -55,11 +55,6 @@ steps:
     addToPath: true 
     architecture: 'x64'
 
-- task: AWSCLI@1
-  inputs:
-    awsCredentials: 'llteodoro.aws'
-    regionName: 'us-east-1'
-
 - task: CmdLine@2
   displayName: Install Dependencies 
   inputs:
