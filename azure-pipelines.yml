@@ -59,9 +59,6 @@ steps:
   inputs:
     awsCredentials: 'llteodoro.aws'
     regionName: 'us-east-1'
-    awsCommand: 'configure'
-    awsSubCommand: '--profile'
-    awsArguments: '"user1"'
 
 - task: CmdLine@2
   displayName: Install Dependencies 
@@ -70,6 +67,7 @@ steps:
     script: |
       export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID)
       export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
+      cat ~/.aws/credentials
       sudo ansible-galaxy collection install amazon.aws
       sudo apt-get install -y python-wheel
       python3 -m venv .venv && source .venv/bin/activate
