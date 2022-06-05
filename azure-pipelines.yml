@@ -59,14 +59,6 @@ steps:
   inputs:
     workingDirectory: '${{ parameters.workingDirectory }}'
     script: |
-           aws configure --profile aws_profile
-
-
-- task: CmdLine@2
-  displayName: Install Dependencies 
-  inputs:
-    workingDirectory: '${{ parameters.workingDirectory }}'
-    script: |
       export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID)
       export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
       cat ~/.aws/credentials
