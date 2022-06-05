@@ -54,7 +54,12 @@ steps:
     versionSpec: '3.x' 
     addToPath: true 
     architecture: 'x64'
-
+- task: AWSCLI@1
+  inputs:
+    awsCredentials: 'llteodoro.aws'
+    regionName: 'us-east-1'
+    awsCommand: 'aws configure'
+    awsArguments: '--profile "user1"'
 - task: CmdLine@2
   displayName: Install Dependencies 
   inputs:
