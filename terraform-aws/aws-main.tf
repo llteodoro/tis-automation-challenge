@@ -28,7 +28,7 @@ resource "aws_instance" "Vm-Ansible-Agent" {
 
 }
 resource "aws_instance" "Vm-Linux" {
-  count = 2
+  count = 1
   ami           = lookup(var.aws_ami-linux,var.aws_region) # us-east-1
   instance_type = var.aws_instance
   key_name = "challenge-key"
@@ -44,7 +44,7 @@ resource "aws_instance" "Vm-Linux" {
 }
 
 resource "aws_instance" "Vm-Windows" {
-  count = 2
+  count = 1
   ami           = lookup(var.aws_ami-windows,var.aws_region) # us-east-1
   instance_type = var.aws_instance
   key_name = "challenge-key"
