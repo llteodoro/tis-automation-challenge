@@ -48,19 +48,18 @@ steps:
 - task: DownloadSecureFile@1
   inputs:
     secureFile: 'challenge-key.pem'
+-  task: UsePythonVersion@0
+   inputs:
+    versionSpec: '3.x' 
+    addToPath: true 
+    architecture: 'x64'
 
 - task: CmdLine@2
   displayName: Install Dependencies 
   inputs:
     workingDirectory: '${{ parameters.workingDirectory }}'
     script: |
-    aws configure --profile aws_profile
-
-- task: UsePythonVersion@0
-  inputs:
-  versionSpec: '3.x' 
-    addToPath: true 
-    architecture: 'x64'
+           aws configure --profile aws_profile
 
 
 - task: CmdLine@2
