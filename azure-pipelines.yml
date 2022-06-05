@@ -49,20 +49,19 @@ steps:
   inputs:
     secureFile: 'challenge-key.pem'
 
-- task: AWSCLI@1
+- task: CmdLine@2
+  displayName: Install Dependencies 
   inputs:
-    awsCredentials: 'llteodoro.aws'
-    regionName: 'us-east-1'
-    awsCommand: 'configure'
-    awsSubCommand: '--profile'
-    awsArguments: '"aws_profile"'
-    failOnStandardError: true
-    
+    workingDirectory: '${{ parameters.workingDirectory }}'
+    script: |
+    aws configure --profile aws_profile
+
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.x' 
+  versionSpec: '3.x' 
     addToPath: true 
     architecture: 'x64'
+
 
 - task: CmdLine@2
   displayName: Install Dependencies 
