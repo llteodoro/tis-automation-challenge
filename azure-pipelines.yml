@@ -59,8 +59,8 @@ steps:
   inputs:
     workingDirectory: '${{ parameters.workingDirectory }}'
     script: |
-      export AWS_ACCES_KEY_ID=$(aws_acces_key_id))
-      export AWS_SECRET_ACCESS_KEY=$(aws_acces_key_secret)
+      export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID))
+      export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
       cat ~/.aws/credentials
       sudo apt-get install -y python-wheel
       python3 -m venv .venv && source .venv/bin/activate
