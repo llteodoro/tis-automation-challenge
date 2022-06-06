@@ -65,7 +65,6 @@ steps:
       python3 -m pip install "botocore"
       python3 -m pip install "boto3"
       sudo ansible-galaxy collection install amazon.aws
-      sudo apt-get install -y python-wheel
 - task: CmdLine@2
   displayName: Run Ansible Playbook Linux
   
