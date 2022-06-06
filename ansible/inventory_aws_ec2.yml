@@ -1,13 +1,11 @@
 plugin: aws_ec2
-aws_profile: default
 regions:
   - us-east-1
-
 filters:
-  tag:Group: 
-  - Webserver-Windows
-  - Webserver-Linux
+  'tag:Group':
+    - Webserver-Windows
+    - Webserver-Linux
 keyed_groups:
   - prefix: tag
-    key: tags 
-    separator: ""
+    key: tags
+    separator: ''
