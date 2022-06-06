@@ -12,7 +12,12 @@ parameters:
 steps:
 
 - script:
-
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/ansible'
+    Contents: 'ansible.cfg'
+    TargetFolder: '/etc/ansible/'
+    OverWrite: true
 
 - task: TerraformTaskV3@3
   inputs:
@@ -76,7 +81,17 @@ steps:
      ANSIBLE_HOST_KEY_CHECKING=False
      python3 -m venv .venv && source .venv/bin/activate
      ansible-playbook -i inventory_aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
-
+- task: TerraformTaskV3@3
+  inputs:
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aws/'
+    provider: 'aws'
+    command: 'destroy'
+    commandOptions: '-auto-approve'
+    environmentServiceNameAWS: 'llteodoro-tis-automation-challenge'
+    backendServiceAWS: 'llteodoro-tis-automation-challenge'
+    backendAWSBucketName: 'tis-automation-challenge'
+    backendAWSKey: 'tf-state/terraform.tfstate'
+    
 #- task: CmdLine@3
 #  displayName: Run Ansible Playbook Windows
 #  inputs:
