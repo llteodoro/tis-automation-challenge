@@ -12,12 +12,7 @@ parameters:
 steps:
 
 - script:
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/ansible'
-    Contents: 'ansible.cfg'
-    TargetFolder: '/etc/ansible/'
-    OverWrite: true
+
 
 - task: TerraformTaskV3@3
   inputs:
@@ -69,6 +64,7 @@ steps:
       python3 -m pip install "ansible"
       python3 -m pip install "botocore"
       python3 -m pip install "boto3"
+      sudo cp ansible/ansible.cf /etc/ansible/
 - task: CmdLine@2
   displayName: Run Ansible Playbook Linux
   
