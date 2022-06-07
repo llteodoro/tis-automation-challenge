@@ -54,21 +54,31 @@ steps:
     addToPath: true 
     architecture: 'x64'
 
-- task: CmdLine@2
-  displayName: Install Dependencies 
+#- task: CmdLine@2
+#  displayName: Install Dependencies 
+#  inputs:
+#    workingDirectory: '${{ parameters.workingDirectory }}'
+#    script: |
+#      python3 -m venv .venv && source .venv/bin/activate
+#      python3 -m pip install --upgrade pip
+#      python3 -m pip install "ansible"
+#      python3 -m pip install "botocore"
+#      python3 -m pip install "boto3"
+
+- task: Bash@3
   inputs:
     workingDirectory: '${{ parameters.workingDirectory }}'
+    targetType: 'inline'
     script: |
-      python3 -m venv .venv && source .venv/bin/activate
-      python3 -m pip install --upgrade pip
-      python3 -m pip install "ansible"
-      python3 -m pip install "botocore"
-      python3 -m pip install "boto3"
-- task: CmdLine@2
-  displayName: Run Ansible Playbook Linux
-  
+            python3 -m venv .venv && source .venv/bin/activate
+            python3 -m pip install --upgrade pip
+            python3 -m pip install "ansible"
+            python3 -m pip install "botocore"
+            python3 -m pip install "boto3"
+- task: Bash@3
   inputs:
     workingDirectory: '${{ parameters.workingDirectory }}'
+    targetType: 'inline'
     script: |
      echo $AWS_PROFILE
      export AWS_ACCES_KEY_ID='$(AWS_ACCES_KEY_ID))'
