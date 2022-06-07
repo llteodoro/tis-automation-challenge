@@ -4,4 +4,3 @@ regions:
 keyed_groups:
   - key: tags.Group
     separator: ""
-plugin: amazon.aws.aws_ec2
