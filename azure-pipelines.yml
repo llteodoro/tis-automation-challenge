@@ -82,10 +82,8 @@ steps:
     workingDirectory: '${{ parameters.workingDirectory }}'
     targetType: 'inline'
     script: |
-     echo $AWS_PROFILE
      export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID)
      export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
-     export ANSIBLE_HOST_KEY_CHECKING="False"
       #export SSH_KEY=$(cat /home/vsts/work/_temp/challenge_key.pem) > /dev/null
       #eval $(ssh-agent -s)
       #ssh-add /home/vsts/work/_temp/challenge_key.pem
