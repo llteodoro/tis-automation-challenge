@@ -82,15 +82,13 @@ steps:
     workingDirectory: '${{ parameters.workingDirectory }}'
     targetType: 'inline'
     script: |
-     export AWS_ACCES_KEY_ID=$(AWS_ACCES_KEY_ID)
-     export AWS_SECRET_ACCESS_KEY=$(AWS_ACCES_KEY_SECRET)
-      #export SSH_KEY=$(cat /home/vsts/work/_temp/challenge_key.pem) > /dev/null
-      #eval $(ssh-agent -s)
-      #ssh-add /home/vsts/work/_temp/challenge_key.pem
-      #echo "$SSH_KEY" | tr -d '\r' | ssh-add - > /dev/null
-     ANSIBLE_HOST_KEY_CHECKING=False
-     python3 -m venv .venv && source .venv/bin/activate
-     ansible-playbook -i inventory_aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
+     #echo $AWS_PROFILE 
+     export AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) 
+     export AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) 
+     ANSIBLE_HOST_KEY_CHECKING=False 
+     python3 -m venv .venv && source .venv/bin/activate 
+     ansible-inventory -i inventory.aws_ec2 --graph 
+     ansible-playbook -i inventory.aws_ec2 playbook-linux.yml -u ubuntu --private-key challenge-key.pem
 - task: TerraformTaskV3@3
   inputs:
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aws/'
