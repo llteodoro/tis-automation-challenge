@@ -87,8 +87,8 @@ steps:
      export AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) 
      ANSIBLE_HOST_KEY_CHECKING=False 
      python3 -m venv .venv && source .venv/bin/activate 
-     ansible-inventory -i inventory.aws_ec2 --graph 
-     ansible-playbook -i inventory.aws_ec2 playbook-linux.yml -u ubuntu --private-key challenge-key.pem
+     ansible-inventory -i inventory.aws_ec2.yml --graph 
+     ansible-playbook -i inventory.aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
 - task: TerraformTaskV3@3
   inputs:
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aws/'
