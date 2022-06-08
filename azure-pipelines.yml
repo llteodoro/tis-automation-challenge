@@ -82,7 +82,6 @@ steps:
     workingDirectory: '${{ parameters.workingDirectory }}'
     targetType: 'inline'
     script: |
-     #echo $AWS_PROFILE 
      export AWS_ACCESS_KEY_ID=$(AWS_ACCESS_KEY_ID) 
      export AWS_SECRET_ACCESS_KEY=$(AWS_SECRET_ACCESS_KEY) 
      ANSIBLE_HOST_KEY_CHECKING=False 
