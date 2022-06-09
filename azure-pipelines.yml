@@ -46,26 +46,24 @@ steps:
     backendAWSKey: 'tf-state/terraform.tfstate'
     
 - task: DownloadSecureFile@1
+  name: challenge-key
+  displayName: 'Download SSH-KEY'
   inputs:
     secureFile: 'challenge-key.pem'
-
+- script: |
+    sudo chown root:root $(challenge-key.secureFilePath)
+    sudo chmod a+r $(challenge-key.secureFilePath)
+    sudo ln -s -t /etc/ssl/certs/ $(challenge-key.secureFilePath)
+    export SSH_KEY=$(cat $(challenge-key.secureFilePath) ) > /dev/null
+    eval $(ssh-agent -s)
+    ssh-add $(challenge-key.secureFilePath)
+    echo "$SSH_KEY" | tr -d '\r' | ssh-add - > /dev/null
 
 -  task: UsePythonVersion@0
    inputs:
     versionSpec: '3.x' 
     addToPath: true 
     architecture: 'x64'
-
-#- task: CmdLine@2
-#  displayName: Install Dependencies 
-#  inputs:
-#    workingDirectory: '${{ parameters.workingDirectory }}'
-#    script: |
-#      python3 -m venv .venv && source .venv/bin/activate
-#      python3 -m pip install --upgrade pip
-#      python3 -m pip install "ansible"
-#      python3 -m pip install "botocore"
-#      python3 -m pip install "boto3"
 
 - task: Bash@3
   inputs:
@@ -77,6 +75,7 @@ steps:
             python3 -m pip install "ansible"
             python3 -m pip install "botocore"
             python3 -m pip install "boto3"
+
 - task: Bash@3
   inputs:
     workingDirectory: '${{ parameters.workingDirectory }}'
@@ -87,7 +86,7 @@ steps:
      ANSIBLE_HOST_KEY_CHECKING=False 
      python3 -m venv .venv && source .venv/bin/activate 
      ansible-inventory -i inventory.aws_ec2.yml --graph 
-      #ansible-playbook -i inventory.aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
+     ansible-playbook -i inventory.aws_ec2.yml playbook-linux.yml -u ubuntu --private-key challenge-key.pem
 - task: TerraformTaskV3@3
   inputs:
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-aws/'
