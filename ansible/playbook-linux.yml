@@ -1,5 +1,5 @@
 ---
-- hosts: tagGroupWebserver_Linux
+- hosts: Webserver_Linux
   user: ubuntu
   vars:
     app_user: apache
