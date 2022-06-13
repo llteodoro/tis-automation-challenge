@@ -1,9 +1,18 @@
 ---
 - name: Install Apache from an MSI 
+- hosts: Webserver_Windows
 
-  hosts: tagGroupWebserver_Windows
- 
+  vars:
+    ansible_user: Administrator
+    ansible_password: Password
+    ansible_connection: winrm
+    ansible_port: '5986'
+    ansible_winrm_transport: "basic"
+    ansible_winrm_server_cert_validation: "ignore"
+
+  
   tasks:
+
     - name: Download the Apache installer
       win_get_url:
         url: 'http://mirror.cc.columbia.edu/pub/software/apache//httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi'
